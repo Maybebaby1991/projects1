@@ -34,7 +34,7 @@ if data.shape[1] < 4:
         axs[2].set_xlabel("Time")
         plt.tight_layout(rect=[0, 0.03, 1, 0.95])           
         plt.show()       
-        print("Все графики построены в одном окне.")
+        print("All plots are displayed in a single window.")
 except pd.errors.EmptyDataError:
     print(f"Error: File {file_path_str} empty.")
 except Exception as e:
