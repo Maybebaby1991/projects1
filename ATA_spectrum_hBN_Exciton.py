@@ -345,7 +345,7 @@ print(dT)
 
 # path1 = "/home/mikhail/Documents/Rabota/temp_cbwe/18_05_2022_ATAS_BN/ATA_NOCOULOMB_Nk_300intens_1000000.0_t1_-2.3_dt_0.05/"
 # path2 = "/home/mikhail/Documents/Rabota/temp_cbwe/18_05_2022_ATAS_BN/ATA_NO_Pump_NOCOULOMB_Nk_300intens_0.0_t1_-2.3_dt_0.05/"
-path1_folder = "NOCOULOMB_Nk_200intens_1.00e+09_t1_-2.3_dt_0.1"
+path1_folder = "ReCalc_UncellArea__Nk_200intens_0.00e+00_t1_-2.3_Ncut20_qTF_0.01_dt_0.1_delayXUV_0w_Pump_R0-5EPS-1.0"
 path1 = "D:/working harder making better/27_03_hBN_Coulomb" + "/" + path1_folder + "/"
 
 # path2_folder = "NoPump_UncellArea_19.33_Nk_400epsStepAbs0.02intens0.0_t1_-2.3_Ncut20_qTF_0.01_dt_0.05_delayXUV_-15w_Pump_"
