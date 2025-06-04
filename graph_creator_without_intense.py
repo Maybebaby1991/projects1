@@ -1,28 +1,20 @@
 import matplotlib.pyplot as plt
 import os
 import numpy as np
-import re # Импортируем модуль для регулярных выражений
+import re 
 
-# --- КОНФИГУРАЦИЯ ---
-# !!! ВАЖНО: Укажите путь к ОСНОВНОЙ ДИРЕКТОРИИ, где лежат все папки ReCalc_... !!!
-main_processing_directory = r"D:\working harder making better\27_03_hBN_Coulomb" # <--- ИЗМЕНИТЕ ЭТОТ ПУТЬ
+
+main_processing_directory = r"D:\working harder making better\27_03_hBN_Coulomb" 
 
 file_w_name = "2p_w_at_zero.txt"
 file_abs_name = "2p_Abs_at_zero.txt"
 
-# Шаблон для имен папок. Он будет искать папки, начинающиеся с "ReCalc_UncellArea__..."
-# и содержащие "..._Pump_R0-<значение>EPS-<значение>"
-# Группы в скобках ( ... ) извлекают значения R0 и EPS
+
 folder_name_pattern = r"^ReCalc_UncellArea__Nk_200intens_0\.00e\+00_t1_-2\.3_Ncut20_qTF_0\.01_dt_0\.1_delayXUV_0w_Pump_R0-([-\d\.]+)EPS-([-\d\.]+)$"
 folder_pattern_compiled = re.compile(folder_name_pattern)
 # ---------------------
 
 def extract_params_from_path_string(path_string):
-    """
-    Извлекает параметры R0 и EPS из имени последней папки в пути.
-    Эта функция может быть полезна, если шаблон имени папки более сложный,
-    или если вы хотите извлечь параметры из уже известного пути.
-    """
     folder_name = os.path.basename(path_string)
     r0_value = None
     eps_value = None
@@ -62,9 +54,6 @@ def load_data_from_file(filepath):
         return None
 
 def process_single_folder(current_folder_path, r0_from_name, eps_from_name):
-    """
-    Обрабатывает данные из одной папки: загружает, строит график и сохраняет его.
-    """
     print(f"\n--- Processing folder: {os.path.basename(current_folder_path)} ---")
 
     path_w = os.path.join(current_folder_path, file_w_name)
@@ -129,8 +118,6 @@ def process_single_folder(current_folder_path, r0_from_name, eps_from_name):
             ax.set_ylim(ylim_min, ylim_max)
 
             ax.legend()
-
-            # --- ФОРМИРОВАНИЕ ИМЕНИ ФАЙЛА ДЛЯ СОХРАНЕНИЯ ---
             output_filename_parts = ["plot_w_vs_abs"]
             if r0_from_name is not None:
                 output_filename_parts.append(f"R0_{r0_from_name}")
@@ -143,8 +130,7 @@ def process_single_folder(current_folder_path, r0_from_name, eps_from_name):
             plt.savefig(output_plot_path)
             print(f"Plot saved to: {output_plot_path}")
 
-            # plt.show() # Закомментировано для пакетной обработки, чтобы не показывать каждый график
-            plt.close(fig) # Закрываем фигуру, чтобы освободить память
+            plt.close(fig) 
 
         else:
             print(f"Error in folder {os.path.basename(current_folder_path)}: The number of data points in the files does not match!")
@@ -159,7 +145,6 @@ def process_single_folder(current_folder_path, r0_from_name, eps_from_name):
         print(f"The graph will not be plotted for folder {os.path.basename(current_folder_path)}.")
 
 
-# --- ОСНОВНОЙ БЛОК ВЫПОЛНЕНИЯ ---
 if __name__ == "__main__":
     if not os.path.isdir(main_processing_directory):
         print(f"Error: Main processing directory not found: {main_processing_directory}")
@@ -170,17 +155,15 @@ if __name__ == "__main__":
         for item_name in os.listdir(main_processing_directory):
             item_path = os.path.join(main_processing_directory, item_name)
             if os.path.isdir(item_path):
-                # Проверяем, соответствует ли имя папки нашему шаблону
                 match = folder_pattern_compiled.match(item_name)
                 if match:
                     found_matching_folders += 1
-                    r0_val = match.group(1) # Первое значение в скобках в regex (R0)
-                    eps_val = match.group(2) # Второе значение в скобках в regex (EPS)
+                    r0_val = match.group(1) 
+                    eps_val = match.group(2) 
                     
-                    # Вызываем функцию обработки для этой папки
                     process_single_folder(item_path, r0_val, eps_val)
                 # else:
-                    # print(f"Skipping non-matching directory: {item_name}") # Можно раскомментировать для отладки
+                    # print(f"Skipping non-matching directory: {item_name}") # для отладки
 
         if found_matching_folders == 0:
             print(f"\nNo folders matching the pattern '{folder_name_pattern}' were found in '{main_processing_directory}'.")

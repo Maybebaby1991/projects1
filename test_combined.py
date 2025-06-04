@@ -1,7 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont
 
 try:
-    font = ImageFont.truetype("arial.ttf", 20)  # Попробуйте Arial, или None для шрифта по умолчанию
+    font = ImageFont.truetype("arial.ttf", 20)  
 except IOError:
     font = ImageFont.load_default()
 
@@ -9,9 +9,9 @@ caption_text = "Тестовая подпись"
 img = Image.new('RGB', (200, 100), 'white')
 d = ImageDraw.Draw(img)
 
-current_font = font # Временная переменная - как и в скрипте объединения
-bbox = d.textbbox(0, 0, caption_text, font=current_font) # Тест textbbox
+current_font = font 
+bbox = d.textbbox(0, 0, caption_text, font=current_font) 
 
-print("Результат textbbox:", bbox) # Выводим результат, чтобы увидеть, работает ли
+print("Результат textbbox:", bbox) 
 
-img.show() # Необязательно: показать изображение для визуальной проверки
+img.show() 
